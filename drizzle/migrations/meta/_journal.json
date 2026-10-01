@@ -8,6 +8,13 @@
       "when": 1790808237259,
       "tag": "0000_janaina_studio_schema",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1790812945441,
+      "tag": "0001_claim_first_admin",
+      "breakpoints": true
     }
   ]
 }

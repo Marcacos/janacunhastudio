@@ -232,6 +232,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      claim_first_admin: { Args: never; Returns: boolean }
       create_appointment: {
         Args: {
           p_date: string
