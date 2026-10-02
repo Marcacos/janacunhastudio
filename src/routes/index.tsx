@@ -156,7 +156,7 @@ function Home() {
           </div>
           <div className="mt-14 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
             {(services ?? []).map((service) => (
-              <article key={service.id} className="flex flex-col gap-3 bg-card p-8">
+              <article key={service.id} className="flex flex-col gap-3 bg-card p-8 transition-shadow duration-300 hover:shadow-[inset_0_0_0_2px_var(--gold)]">
                 <h3 className="text-2xl">{service.name}</h3>
                 <p className="flex-1 text-base leading-relaxed text-muted-foreground">{service.description}</p>
                 <div className="mt-2 flex items-center justify-between border-t border-border pt-4 text-sm">
