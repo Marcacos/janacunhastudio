@@ -586,13 +586,13 @@ function SettingsTab() {
       const { error } = await supabase
         .from("site_settings")
         .update({
-          whatsapp: String(current.whatsapp ?? ""),
-          address: String(current.address ?? ""),
-          instagram: String(current.instagram ?? ""),
-          map_embed_url: String(current.map_embed_url ?? ""),
-          slot_interval_minutes: Number(current.slot_interval_minutes ?? 30),
-          buffer_minutes: Number(current.buffer_minutes ?? 0),
-          about_text: String(current.about_text ?? ""),
+          whatsapp: String(current["whatsapp"] ?? ""),
+          address: String(current["address"] ?? ""),
+          instagram: String(current["instagram"] ?? ""),
+          map_embed_url: String(current["map_embed_url"] ?? ""),
+          slot_interval_minutes: Number(current["slot_interval_minutes"] ?? 30),
+          buffer_minutes: Number(current["buffer_minutes"] ?? 0),
+          about_text: String(current["about_text"] ?? ""),
         })
         .eq("id", true);
       if (error) throw new Error(error.message);
