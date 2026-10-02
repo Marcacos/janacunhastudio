@@ -73,7 +73,7 @@ function Admin() {
     <div className="min-h-screen bg-cream">
       <header className="border-b border-border bg-background">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4">
-          <Logo className="h-11" />
+          <Logo className="h-14" />
           <Button variant="ghost" size="sm" onClick={signOut}>
             <LogOut className="mr-2 size-4" /> Sair
           </Button>

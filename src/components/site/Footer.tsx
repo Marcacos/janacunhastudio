@@ -6,7 +6,7 @@ export function Footer({ instagram, address }: { instagram?: string; address?: s
   return (
     <footer className="border-t border-border/70 bg-cream">
       <div className="mx-auto flex max-w-6xl flex-col items-center gap-6 px-5 py-14 text-center">
-        <Logo className="h-16" />
+        <Logo className="h-24" />
         <span className="gold-rule w-40" aria-hidden="true" />
         <nav className="flex flex-wrap justify-center gap-6 text-xs uppercase tracking-[0.2em] text-muted-foreground">
           <Link to="/" hash="servicos" className="hover:text-gold">

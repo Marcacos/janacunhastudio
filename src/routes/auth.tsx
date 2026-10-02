@@ -67,7 +67,7 @@ function AuthPage() {
     <div className="flex min-h-screen items-center justify-center bg-cream px-5">
       <div className="w-full max-w-sm">
         <div className="flex justify-center">
-          <Logo className="h-24" />
+          <Logo className="h-32" />
         </div>
         <div className="mt-10 border border-border bg-card p-8">
           <h1 className="text-center text-2xl">{mode === "login" ? "Acesso da equipe" : "Criar acesso"}</h1>

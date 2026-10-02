@@ -21,7 +21,7 @@ export function Header() {
     <header className="fixed inset-x-0 top-0 z-50 border-b border-border/60 bg-background/90 backdrop-blur-md">
       <div className="mx-auto flex h-20 max-w-6xl items-center justify-between px-5">
         <Link to="/" hash="inicio" aria-label="Janaína Cunha Studio — início">
-          <Logo className="h-12 md:h-14" />
+          <Logo className="h-14 md:h-16" />
         </Link>
 
         <nav className="hidden items-center gap-8 md:flex" aria-label="Navegação principal">
