@@ -259,7 +259,7 @@ function Home() {
                   <li className="flex gap-3">
                     <MessageCircle className="mt-0.5 size-4 shrink-0 text-gold-text" />
                     <a
-                      href={whatsappLink(wa.me/5548996171691)}
+                      href={whatsappLink(whatsapp)}
                       target="_blank"
                       rel="noreferrer"
                       className="text-muted-foreground hover:text-gold-text"
