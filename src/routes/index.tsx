@@ -118,7 +118,7 @@ function Home() {
           <div className="fade-up relative z-10 mx-auto w-full max-w-6xl px-5 py-16 md:py-24">
             <div className="max-w-xl text-center md:text-left">
               <p className="eyebrow">Beleza & cuidado</p>
-              <h1 className="mt-6 text-4xl font-medium leading-tight text-foreground md:text-6xl">
+              <h1 className="mt-6 text-4xl font-semibold leading-tight text-foreground md:text-6xl">
                 Onde o cuidado encontra a sua beleza natural
               </h1>
               <span className="gold-rule mx-auto mt-8 w-32 md:mx-0" aria-hidden="true" />

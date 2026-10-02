@@ -103,6 +103,7 @@
     font-family: var(--font-sans);
     font-size: 1.0625rem;
     line-height: 1.65;
+    font-weight: 500;
     -webkit-font-smoothing: antialiased;
   }
 
@@ -111,7 +112,7 @@
   h3,
   h4 {
     font-family: var(--font-serif);
-    font-weight: 500;
+    font-weight: 600;
     letter-spacing: 0.01em;
   }
 
@@ -123,7 +124,7 @@
 
 @utility eyebrow {
   font-size: 0.8rem;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: 0.3em;
   text-transform: uppercase;
   color: var(--gold-text);
