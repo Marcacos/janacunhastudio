@@ -114,7 +114,7 @@ function AgendaTab() {
   const [search, setSearch] = useState("");
 
   const update = useMutation({
-    mutationFn: async ({ id, patch }: { id: string; patch: Partial<Appointment> }) => {
+    mutationFn: async ({ id, patch }: { id: string; patch: { status: Appointment["status"] } }) => {
       const { error } = await supabase.from("appointments").update(patch).eq("id", id);
       if (error) throw new Error(error.message);
     },
@@ -578,7 +578,7 @@ function SettingsTab() {
   const [newBlocked, setNewBlocked] = useState("");
   const [form, setForm] = useState<Record<string, string | number> | null>(null);
 
-  const current = form ?? (settings ? { ...settings } : null);
+  const current = form ?? (settings ? ({ ...settings, id: 1 } as Record<string, string | number>) : null);
 
   const saveSettings = useMutation({
     mutationFn: async () => {
@@ -605,7 +605,7 @@ function SettingsTab() {
   });
 
   const saveHour = useMutation({
-    mutationFn: async ({ id, patch }: { id: string; patch: Record<string, unknown> }) => {
+    mutationFn: async ({ id, patch }: { id: string; patch: { is_closed?: boolean; open_time?: string; close_time?: string } }) => {
       const { error } = await supabase.from("business_hours").update(patch).eq("id", id);
       if (error) throw new Error(error.message);
     },
