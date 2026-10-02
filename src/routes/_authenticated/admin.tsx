@@ -4,7 +4,19 @@ import { Loader2, LogOut, Plus, Trash2 } from "lucide-react";
 import { useMemo, useState } from "react";
 import { toast } from "sonner";
 
+import { DashboardTab } from "@/components/admin/DashboardTab";
 import { Logo } from "@/components/site/Logo";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
@@ -81,12 +93,16 @@ function Admin() {
       </header>
 
       <main className="mx-auto max-w-6xl px-5 py-8">
-        <Tabs defaultValue="agenda">
+        <Tabs defaultValue="dashboard">
           <TabsList className="rounded-none">
+            <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
             <TabsTrigger value="agenda">Agenda</TabsTrigger>
             <TabsTrigger value="servicos">Serviços</TabsTrigger>
             <TabsTrigger value="config">Configurações</TabsTrigger>
           </TabsList>
+          <TabsContent value="dashboard" className="mt-6">
+            <DashboardTab />
+          </TabsContent>
           <TabsContent value="agenda" className="mt-6">
             <AgendaTab />
           </TabsContent>
@@ -121,6 +137,20 @@ function AgendaTab() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["appointments"] });
       toast.success("Agendamento atualizado.");
+    },
+    onError: (e: Error) => toast.error(e.message),
+  });
+
+  const remove = useMutation({
+    mutationFn: async (id: string) => {
+      const { data, error } = await supabase.from("appointments").delete().eq("id", id).select("id");
+      if (error) throw new Error(error.message);
+      if (!data || data.length === 0) throw new Error("Não foi possível excluir o agendamento.");
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["appointments"] });
+      queryClient.invalidateQueries({ queryKey: ["busy_times"] });
+      toast.success("Agendamento excluído.");
     },
     onError: (e: Error) => toast.error(e.message),
   });
@@ -250,6 +280,31 @@ function AgendaTab() {
                   Cancelar
                 </Button>
                 <RescheduleDialog appointment={a} />
+                <AlertDialog>
+                  <AlertDialogTrigger asChild>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      className="rounded-none border-destructive/50 text-destructive hover:bg-destructive hover:text-destructive-foreground"
+                    >
+                      <Trash2 className="mr-2 size-4" /> Excluir
+                    </Button>
+                  </AlertDialogTrigger>
+                  <AlertDialogContent>
+                    <AlertDialogHeader>
+                      <AlertDialogTitle>Excluir este agendamento?</AlertDialogTitle>
+                      <AlertDialogDescription>
+                        {a.customer_name} · {formatDateShort(a.appointment_date)} às {formatTime(a.start_time)}. Essa ação
+                        apaga o registro de vez e ele deixa de contar nas métricas. Se só quer liberar o horário e manter
+                        o histórico, use “Cancelar”.
+                      </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                      <AlertDialogCancel>Voltar</AlertDialogCancel>
+                      <AlertDialogAction onClick={() => remove.mutate(a.id)}>Excluir</AlertDialogAction>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
               </div>
             </article>
           ))}
