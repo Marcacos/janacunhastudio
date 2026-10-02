@@ -694,7 +694,7 @@ function SettingsTab() {
             <Label htmlFor="c-whats">WhatsApp (só números, com DDI)</Label>
             <Input
               id="c-whats"
-              value={String(current?.whatsapp ?? "")}
+              value={String(current?.["whatsapp"] ?? "")}
               onChange={(e) => set("whatsapp", e.target.value)}
               className="mt-2 rounded-none"
             />
@@ -703,7 +703,7 @@ function SettingsTab() {
             <Label htmlFor="c-insta">Instagram</Label>
             <Input
               id="c-insta"
-              value={String(current?.instagram ?? "")}
+              value={String(current?.["instagram"] ?? "")}
               onChange={(e) => set("instagram", e.target.value)}
               className="mt-2 rounded-none"
             />
@@ -712,7 +712,7 @@ function SettingsTab() {
             <Label htmlFor="c-addr">Endereço</Label>
             <Input
               id="c-addr"
-              value={String(current?.address ?? "")}
+              value={String(current?.["address"] ?? "")}
               onChange={(e) => set("address", e.target.value)}
               className="mt-2 rounded-none"
             />
@@ -721,7 +721,7 @@ function SettingsTab() {
             <Label htmlFor="c-map">Link do mapa incorporado (iframe src do Google Maps)</Label>
             <Input
               id="c-map"
-              value={String(current?.map_embed_url ?? "")}
+              value={String(current?.["map_embed_url"] ?? "")}
               onChange={(e) => set("map_embed_url", e.target.value)}
               className="mt-2 rounded-none"
             />
@@ -731,7 +731,7 @@ function SettingsTab() {
             <Input
               id="c-interval"
               type="number"
-              value={Number(current?.slot_interval_minutes ?? 30)}
+              value={Number(current?.["slot_interval_minutes"] ?? 30)}
               onChange={(e) => set("slot_interval_minutes", Number(e.target.value))}
               className="mt-2 rounded-none"
             />
@@ -741,7 +741,7 @@ function SettingsTab() {
             <Input
               id="c-buffer"
               type="number"
-              value={Number(current?.buffer_minutes ?? 0)}
+              value={Number(current?.["buffer_minutes"] ?? 0)}
               onChange={(e) => set("buffer_minutes", Number(e.target.value))}
               className="mt-2 rounded-none"
             />
