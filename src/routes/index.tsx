@@ -2,8 +2,6 @@ import { useQuery } from "@tanstack/react-query";
 import { Link, createFileRoute } from "@tanstack/react-router";
 import { Clock, MapPin, MessageCircle, Instagram } from "lucide-react";
 
-import espaco from "@/assets/espaco.jpg.asset.json";
-import janaina from "@/assets/janaina.jpg.asset.json";
 import { Footer } from "@/components/site/Footer";
 import { Header } from "@/components/site/Header";
 import { WhatsAppFloat } from "@/components/site/WhatsAppFloat";
@@ -174,7 +172,7 @@ function Home() {
         <Section id="sobre" className="bg-cream">
           <div className="grid items-center gap-12 md:grid-cols-2">
             <img
-              src={janaina.url}
+              src="/janaina.jpg"
               alt="Janaína Cunha no studio"
               loading="lazy"
               className="aspect-[3/4] w-full rounded-sm object-cover object-top shadow-sm"
@@ -204,7 +202,7 @@ function Home() {
         {/* ESPAÇO */}
         <section id="espaco" className="scroll-mt-24">
           <img
-            src={espaco.url}
+            src="/hero-studio.jpg"
             alt="Letreiro dourado iluminado do Janaína Cunha Studio na parede de tijolos brancos"
             loading="lazy"
             className="h-[60vh] w-full object-cover"
