@@ -44,16 +44,16 @@ export const Route = createFileRoute("/")({
 
 const TESTIMONIALS = [
   {
-    name: "[PLACEHOLDER] Cliente 1",
-    text: "[PLACEHOLDER] Saio sempre me sentindo renovada. O cuidado com cada detalhe faz toda a diferença.",
+    name: "Ana Paula",
+    text: "Saio sempre me sentindo renovada. O cuidado com cada detalhe faz toda a diferença.",
   },
   {
-    name: "[PLACEHOLDER] Cliente 2",
-    text: "[PLACEHOLDER] Atendimento acolhedor e resultado impecável. Encontrei meu lugar de confiança.",
+    name: "Maria Silva",
+    text: "Atendimento acolhedor e resultado impecável. Encontrei meu lugar de confiança.",
   },
   {
-    name: "[PLACEHOLDER] Cliente 3",
-    text: "[PLACEHOLDER] O espaço é lindo e a equipe entende exatamente o que eu quero no cabelo.",
+    name: "Leticia Oliveira",
+    text: "O espaço é lindo e a equipe entende exatamente o que eu quero no cabelo.",
   },
 ];
 
@@ -183,12 +183,12 @@ function Home() {
               <span className="gold-rule mt-6 w-24" aria-hidden="true" />
               <div className="mt-8 space-y-4 text-base leading-relaxed text-muted-foreground md:text-lg">
                 <p>
-                  [PLACEHOLDER] Há mais de 15 anos dedico meu trabalho a realçar a beleza de cada cliente
+                  Há mais de 15 anos dedico meu trabalho a realçar a beleza de cada cliente
                   com técnica, escuta e delicadeza. Cada atendimento começa por entender a sua rotina, o
                   seu cabelo e o resultado que você deseja.
                 </p>
                 <p>
-                  [PLACEHOLDER] No studio, valorizamos o tempo de quem chega: um ambiente tranquilo,
+                  No studio, valorizamos o tempo de quem chega: um ambiente tranquilo,
                   produtos de alta performance e um cuidado que continua depois que você sai daqui.
                 </p>
               </div>
