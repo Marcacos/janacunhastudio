@@ -30,7 +30,7 @@ export function Header() {
               key={item.hash}
               to="/"
               hash={item.hash}
-              className="text-xs uppercase tracking-[0.2em] text-muted-foreground transition-colors hover:text-gold"
+              className="text-sm font-medium uppercase tracking-[0.15em] text-foreground/80 transition-colors hover:text-gold-text"
             >
               {item.label}
             </Link>
