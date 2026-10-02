@@ -286,7 +286,7 @@ function Home() {
         </Section>
       </main>
 
-      <Footer instagram={settings?.instagram} address={settings?.address} />
+      <Footer instagram={settings?.instagram ?? ""} address={settings?.address ?? ""} />
     </div>
   );
 }

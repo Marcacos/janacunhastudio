@@ -114,7 +114,7 @@ function AgendaTab() {
   const [search, setSearch] = useState("");
 
   const update = useMutation({
-    mutationFn: async ({ id, patch }: { id: string; patch: Partial<Appointment> }) => {
+    mutationFn: async ({ id, patch }: { id: string; patch: { status: Appointment["status"] } }) => {
       const { error } = await supabase.from("appointments").update(patch).eq("id", id);
       if (error) throw new Error(error.message);
     },
@@ -578,7 +578,7 @@ function SettingsTab() {
   const [newBlocked, setNewBlocked] = useState("");
   const [form, setForm] = useState<Record<string, string | number> | null>(null);
 
-  const current = form ?? (settings ? { ...settings } : null);
+  const current = form ?? (settings ? ({ ...settings, id: 1 } as Record<string, string | number>) : null);
 
   const saveSettings = useMutation({
     mutationFn: async () => {
@@ -586,13 +586,13 @@ function SettingsTab() {
       const { error } = await supabase
         .from("site_settings")
         .update({
-          whatsapp: String(current.whatsapp ?? ""),
-          address: String(current.address ?? ""),
-          instagram: String(current.instagram ?? ""),
-          map_embed_url: String(current.map_embed_url ?? ""),
-          slot_interval_minutes: Number(current.slot_interval_minutes ?? 30),
-          buffer_minutes: Number(current.buffer_minutes ?? 0),
-          about_text: String(current.about_text ?? ""),
+          whatsapp: String(current["whatsapp"] ?? ""),
+          address: String(current["address"] ?? ""),
+          instagram: String(current["instagram"] ?? ""),
+          map_embed_url: String(current["map_embed_url"] ?? ""),
+          slot_interval_minutes: Number(current["slot_interval_minutes"] ?? 30),
+          buffer_minutes: Number(current["buffer_minutes"] ?? 0),
+          about_text: String(current["about_text"] ?? ""),
         })
         .eq("id", true);
       if (error) throw new Error(error.message);
@@ -605,7 +605,7 @@ function SettingsTab() {
   });
 
   const saveHour = useMutation({
-    mutationFn: async ({ id, patch }: { id: string; patch: Record<string, unknown> }) => {
+    mutationFn: async ({ id, patch }: { id: string; patch: { is_closed?: boolean; open_time?: string; close_time?: string } }) => {
       const { error } = await supabase.from("business_hours").update(patch).eq("id", id);
       if (error) throw new Error(error.message);
     },
@@ -694,7 +694,7 @@ function SettingsTab() {
             <Label htmlFor="c-whats">WhatsApp (só números, com DDI)</Label>
             <Input
               id="c-whats"
-              value={String(current?.whatsapp ?? "")}
+              value={String(current?.["whatsapp"] ?? "")}
               onChange={(e) => set("whatsapp", e.target.value)}
               className="mt-2 rounded-none"
             />
@@ -703,7 +703,7 @@ function SettingsTab() {
             <Label htmlFor="c-insta">Instagram</Label>
             <Input
               id="c-insta"
-              value={String(current?.instagram ?? "")}
+              value={String(current?.["instagram"] ?? "")}
               onChange={(e) => set("instagram", e.target.value)}
               className="mt-2 rounded-none"
             />
@@ -712,7 +712,7 @@ function SettingsTab() {
             <Label htmlFor="c-addr">Endereço</Label>
             <Input
               id="c-addr"
-              value={String(current?.address ?? "")}
+              value={String(current?.["address"] ?? "")}
               onChange={(e) => set("address", e.target.value)}
               className="mt-2 rounded-none"
             />
@@ -721,7 +721,7 @@ function SettingsTab() {
             <Label htmlFor="c-map">Link do mapa incorporado (iframe src do Google Maps)</Label>
             <Input
               id="c-map"
-              value={String(current?.map_embed_url ?? "")}
+              value={String(current?.["map_embed_url"] ?? "")}
               onChange={(e) => set("map_embed_url", e.target.value)}
               className="mt-2 rounded-none"
             />
@@ -731,7 +731,7 @@ function SettingsTab() {
             <Input
               id="c-interval"
               type="number"
-              value={Number(current?.slot_interval_minutes ?? 30)}
+              value={Number(current?.["slot_interval_minutes"] ?? 30)}
               onChange={(e) => set("slot_interval_minutes", Number(e.target.value))}
               className="mt-2 rounded-none"
             />
@@ -741,7 +741,7 @@ function SettingsTab() {
             <Input
               id="c-buffer"
               type="number"
-              value={Number(current?.buffer_minutes ?? 0)}
+              value={Number(current?.["buffer_minutes"] ?? 0)}
               onChange={(e) => set("buffer_minutes", Number(e.target.value))}
               className="mt-2 rounded-none"
             />
