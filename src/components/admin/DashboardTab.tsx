@@ -103,8 +103,8 @@ export function DashboardTab() {
       <section className="border border-border bg-card p-6">
         <h2 className="text-2xl">Baixar atendimentos do mês</h2>
         <p className="mt-1 text-sm text-muted-foreground">
-          Gera uma planilha (CSV, abre no Excel e no Google Planilhas) com cada atendimento: data, horário, cliente,
-          WhatsApp, serviços, valor e status, mais os totais no final.
+          Gera uma planilha Excel (.xlsx) formatada com cada atendimento: data, horário, cliente, WhatsApp, serviços,
+          valor e status, mais os totais no final.
         </p>
         <div className="mt-4 flex flex-wrap items-end gap-3">
           <div>
@@ -119,8 +119,8 @@ export function DashboardTab() {
               className="mt-1 rounded-none"
             />
           </div>
-          <Button className="rounded-none" onClick={exportCsv} disabled={!exportMonth}>
-            <Download className="mr-2 size-4" /> Baixar planilha
+          <Button className="rounded-none" onClick={exportXlsx} disabled={!exportMonth || exporting}>
+            <Download className="mr-2 size-4" /> {exporting ? "Gerando…" : "Baixar planilha"}
           </Button>
         </div>
       </section>
