@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { type Appointment, appointmentsQuery } from "@/lib/api";
-import { buildMonthCsv, downloadFile } from "@/lib/export";
+import { buildMonthXlsx, downloadBlob } from "@/lib/export";
 import { formatDateShort, formatPrice, fromDateKey, toDateKey, todayKey } from "@/lib/format";
 
 /** Segunda a domingo da semana que contém a data (AAAA-MM-DD). */
@@ -56,15 +56,25 @@ export function DashboardTab() {
     };
   }, [appointments, today]);
 
-  function exportCsv() {
+  const [exporting, setExporting] = useState(false);
+
+  async function exportXlsx() {
     const list = appointments ?? [];
     const inMonth = list.filter((a) => a.appointment_date.startsWith(exportMonth));
     if (inMonth.length === 0) {
       toast.error("Não há atendimentos neste mês.");
       return;
     }
-    downloadFile(`atendimentos-${exportMonth}.csv`, buildMonthCsv(list, exportMonth));
-    toast.success("Planilha baixada.");
+    setExporting(true);
+    try {
+      const blob = await buildMonthXlsx(list, exportMonth);
+      downloadBlob(`atendimentos-${exportMonth}.xlsx`, blob);
+      toast.success("Planilha baixada.");
+    } catch {
+      toast.error("Não foi possível gerar a planilha.");
+    } finally {
+      setExporting(false);
+    }
   }
 
   if (isLoading) return <p className="text-base text-muted-foreground">Carregando métricas…</p>;
