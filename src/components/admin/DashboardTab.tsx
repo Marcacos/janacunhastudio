@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { type Appointment, appointmentsQuery } from "@/lib/api";
-import { buildMonthCsv, downloadFile } from "@/lib/export";
+import { buildMonthXlsx, downloadBlob } from "@/lib/export";
 import { formatDateShort, formatPrice, fromDateKey, toDateKey, todayKey } from "@/lib/format";
 
 /** Segunda a domingo da semana que contém a data (AAAA-MM-DD). */
@@ -56,15 +56,25 @@ export function DashboardTab() {
     };
   }, [appointments, today]);
 
-  function exportCsv() {
+  const [exporting, setExporting] = useState(false);
+
+  async function exportXlsx() {
     const list = appointments ?? [];
     const inMonth = list.filter((a) => a.appointment_date.startsWith(exportMonth));
     if (inMonth.length === 0) {
       toast.error("Não há atendimentos neste mês.");
       return;
     }
-    downloadFile(`atendimentos-${exportMonth}.csv`, buildMonthCsv(list, exportMonth));
-    toast.success("Planilha baixada.");
+    setExporting(true);
+    try {
+      const blob = await buildMonthXlsx(list, exportMonth);
+      downloadBlob(`atendimentos-${exportMonth}.xlsx`, blob);
+      toast.success("Planilha baixada.");
+    } catch {
+      toast.error("Não foi possível gerar a planilha.");
+    } finally {
+      setExporting(false);
+    }
   }
 
   if (isLoading) return <p className="text-base text-muted-foreground">Carregando métricas…</p>;
@@ -93,8 +103,8 @@ export function DashboardTab() {
       <section className="border border-border bg-card p-6">
         <h2 className="text-2xl">Baixar atendimentos do mês</h2>
         <p className="mt-1 text-sm text-muted-foreground">
-          Gera uma planilha (CSV, abre no Excel e no Google Planilhas) com cada atendimento: data, horário, cliente,
-          WhatsApp, serviços, valor e status, mais os totais no final.
+          Gera uma planilha Excel (.xlsx) formatada com cada atendimento: data, horário, cliente, WhatsApp, serviços,
+          valor e status, mais os totais no final.
         </p>
         <div className="mt-4 flex flex-wrap items-end gap-3">
           <div>
@@ -109,8 +119,8 @@ export function DashboardTab() {
               className="mt-1 rounded-none"
             />
           </div>
-          <Button className="rounded-none" onClick={exportCsv} disabled={!exportMonth}>
-            <Download className="mr-2 size-4" /> Baixar planilha
+          <Button className="rounded-none" onClick={exportXlsx} disabled={!exportMonth || exporting}>
+            <Download className="mr-2 size-4" /> {exporting ? "Gerando…" : "Baixar planilha"}
           </Button>
         </div>
       </section>
