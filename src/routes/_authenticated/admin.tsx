@@ -33,7 +33,7 @@ import {
   appointmentsQuery,
   blockedDatesQuery,
   businessHoursQuery,
-  createAppointment,
+  adminCreateAppointment,
   servicesQuery,
   settingsQuery,
 } from "@/lib/api";
@@ -387,10 +387,11 @@ function ManualBookingDialog({ services }: { services: Service[] }) {
   const [time, setTime] = useState("09:00");
   const [notes, setNotes] = useState("");
   const [selected, setSelected] = useState<string[]>([]);
+  const [status, setStatus] = useState<"pendente" | "confirmado" | "concluido">("confirmado");
 
   const save = useMutation({
     mutationFn: () =>
-      createAppointment({ name, whatsapp: phone, notes, date, startTime: time, serviceIds: selected }),
+      adminCreateAppointment({ name, whatsapp: phone, notes, date, startTime: time, serviceIds: selected, status }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["appointments"] });
       toast.success("Agendamento criado.");
@@ -432,6 +433,19 @@ function ManualBookingDialog({ services }: { services: Service[] }) {
               <Label htmlFor="m-time">Horário</Label>
               <Input id="m-time" type="time" value={time} onChange={(e) => setTime(e.target.value)} className="mt-2 rounded-none" />
             </div>
+          </div>
+          <div>
+            <Label htmlFor="m-status">Status</Label>
+            <select
+              id="m-status"
+              value={status}
+              onChange={(e) => setStatus(e.target.value as typeof status)}
+              className="mt-2 h-10 w-full border border-input bg-background px-3 text-sm"
+            >
+              <option value="pendente">Pendente</option>
+              <option value="confirmado">Confirmado</option>
+              <option value="concluido">Concluído</option>
+            </select>
           </div>
           <div>
             <Label>Serviços</Label>
