@@ -232,7 +232,31 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      claim_first_admin: { Args: never; Returns: boolean }
+      _book_appointment: {
+        Args: {
+          p_date: string
+          p_is_admin: boolean
+          p_name: string
+          p_notes: string
+          p_service_ids: string[]
+          p_start_time: string
+          p_status: string
+          p_whatsapp: string
+        }
+        Returns: string
+      }
+      admin_create_appointment: {
+        Args: {
+          p_date: string
+          p_name: string
+          p_notes: string
+          p_service_ids: string[]
+          p_start_time: string
+          p_status?: string
+          p_whatsapp: string
+        }
+        Returns: string
+      }
       create_appointment: {
         Args: {
           p_date: string

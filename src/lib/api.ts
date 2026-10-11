@@ -119,3 +119,25 @@ export async function createAppointment(input: {
   if (res.error) throw new Error(res.error.message);
   return res.data as string;
 }
+
+export async function adminCreateAppointment(input: {
+  name: string;
+  whatsapp: string;
+  notes: string;
+  date: string;
+  startTime: string;
+  serviceIds: string[];
+  status: "pendente" | "confirmado" | "concluido";
+}) {
+  const res = await supabase.rpc("admin_create_appointment", {
+    p_name: input.name,
+    p_whatsapp: input.whatsapp,
+    p_notes: input.notes,
+    p_date: input.date,
+    p_start_time: input.startTime,
+    p_service_ids: input.serviceIds,
+    p_status: input.status,
+  });
+  if (res.error) throw new Error(res.error.message);
+  return res.data as string;
+}
